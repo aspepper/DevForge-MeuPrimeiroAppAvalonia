@@ -27,4 +27,12 @@ public class ViewLocator : IDataTemplate
     {
         return data is ViewModelBase;
     }
+    
+    public static Type ResolveViewType(Type viewModelType)
+    {
+        var viewName = viewModelType.FullName.Replace("ViewModel", "View");
+        var viewAssemblyName = viewModelType.Assembly.FullName;
+        var viewTypeName = $"{viewName}, {viewAssemblyName}";
+        return Type.GetType(viewTypeName);
+    }
 }

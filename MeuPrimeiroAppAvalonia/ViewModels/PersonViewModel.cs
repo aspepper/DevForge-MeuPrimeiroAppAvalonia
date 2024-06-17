@@ -9,10 +9,11 @@ namespace MeuPrimeiroAppAvalonia.ViewModels;
 public class PersonViewModel : ViewModelBase
 {
 
-    private Person person = new();
+    private PersonModel person;
 
-    public PersonViewModel()
+    public PersonViewModel(PersonModel personModel)
     {
+        person = personModel;
         SendCommand = ReactiveCommand.Create(SendData);
         Genders = [
             GenderDataList.None,
@@ -33,7 +34,7 @@ public class PersonViewModel : ViewModelBase
         ];
     }
 
-    public Person Person
+    public PersonModel Person
     {
         get => person;
         set => this.RaiseAndSetIfChanged(ref person, value);
