@@ -1,35 +1,41 @@
-using System;
 using Avalonia;
 using Avalonia.Controls;
 using MeuPrimeiroAppAvalonia.Interfaces;
+using MeuPrimeiroAppAvalonia.Views;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace MeuPrimeiroAppAvalonia.Services;
 
 public class NavigationService : INavigationService
 {
-    private readonly IServiceProvider _serviceProvider;
+    private readonly IServiceProvider serviceProvider;
+    private ContentControl contentControl;
 
     public NavigationService(IServiceProvider serviceProvider)
     {
-        _serviceProvider = serviceProvider;
+        this.serviceProvider = serviceProvider;
+    }
+
+    public void Initialize(ContentControl contentControl)
+    {
+        this.contentControl = contentControl;
     }
 
     public void NavigateTo<TViewModel>() where TViewModel : class
     {
-        var viewModel = _serviceProvider.GetRequiredService<TViewModel>();
+        var viewModel = serviceProvider.GetRequiredService<TViewModel>();
         var viewType = ViewLocator.ResolveViewType(viewModel.GetType());
-        var view = (Window)_serviceProvider.GetRequiredService(viewType);
-        view.DataContext = viewModel;
-        view.Show();
+        if (viewType != null)
+        {
+            var view = (UserControl)serviceProvider.GetRequiredService(viewType);
+            view.DataContext = viewModel;
+            contentControl.Content = view;
+        }
     }
 
     public void NavigateToRoot<TViewModel>() where TViewModel : class
     {
-        /*foreach (var window in Application.Current)
-        {       
-            window.Close();
-        }*/
         NavigateTo<TViewModel>();
     }
 }

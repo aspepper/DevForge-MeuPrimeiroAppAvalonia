@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
+using MeuPrimeiroAppAvalonia.Interfaces;
 using Models;
 using ReactiveUI;
 
@@ -10,9 +11,11 @@ public class PersonViewModel : ViewModelBase
 {
 
     private PersonModel person;
+    private readonly INavigationService navigationService;
 
-    public PersonViewModel(PersonModel personModel)
+    public PersonViewModel(PersonModel personModel, INavigationService navigationService)
     {
+        this.navigationService = navigationService;
         person = personModel;
         SendCommand = ReactiveCommand.Create(SendData);
         Genders = [

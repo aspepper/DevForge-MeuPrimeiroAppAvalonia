@@ -2,11 +2,11 @@ using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-public sealed class ApplicationLifeTime<T>
+public sealed class AppAvaloniaLifeTime<T>
 {
     public T currentWindow;
 
-    public ApplicationLifeTime(T currentWindow){
+    public AppAvaloniaLifeTime(T currentWindow){
         this.currentWindow = currentWindow;
     }
 

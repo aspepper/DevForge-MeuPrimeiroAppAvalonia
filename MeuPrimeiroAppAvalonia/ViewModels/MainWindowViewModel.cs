@@ -1,22 +1,13 @@
-using System.Windows.Input;
 using MeuPrimeiroAppAvalonia.Interfaces;
-using MeuPrimeiroAppAvalonia.ViewModels;
-using ReactiveUI;
+
+namespace MeuPrimeiroAppAvalonia.ViewModels;
 
 public class MainWindowViewModel
 {
-    private readonly INavigationService _navigationService;
+    private readonly INavigationService navigationService;
 
     public MainWindowViewModel(INavigationService navigationService)
     {
-        _navigationService = navigationService;
-        OpenPersonCommand = ReactiveCommand.Create(OpenPersonView);
-    }
-
-    public ICommand OpenPersonCommand { get; }
-
-    public void OpenPersonView()
-    {
-        _navigationService.NavigateTo<PersonViewModel>();
+        this.navigationService = navigationService;
     }
 }

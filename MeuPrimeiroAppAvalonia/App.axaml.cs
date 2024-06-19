@@ -1,12 +1,12 @@
-using Microsoft.Extensions.DependencyInjection;
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using MeuPrimeiroAppAvalonia.ViewModels;
-using MeuPrimeiroAppAvalonia.Views;
-using Models;
 using MeuPrimeiroAppAvalonia.Interfaces;
 using MeuPrimeiroAppAvalonia.Services;
+using MeuPrimeiroAppAvalonia.ViewModels;
+using MeuPrimeiroAppAvalonia.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Models;
 
 namespace MeuPrimeiroAppAvalonia;
 
@@ -25,35 +25,36 @@ public partial class App : Application
        var serviceCollection = new ServiceCollection();
 
         // Registrar ViewModels
-        serviceCollection.AddTransient<MainWindowViewModel>();
+        serviceCollection.AddSingleton<MainWindowViewModel>();
+        serviceCollection.AddSingleton<MainViewModel>();
         serviceCollection.AddTransient<PersonViewModel>();
 
         // Registrar Views
-        serviceCollection.AddTransient<MainWindow>();
+        serviceCollection.AddSingleton<MainWindow>();
+        serviceCollection.AddSingleton<MainView>();
         serviceCollection.AddTransient<PersonView>();
 
         // Registrar Serviço de Navegação
         serviceCollection.AddSingleton<INavigationService, NavigationService>();
 
         // Adicionar outras dependências
-        serviceCollection.AddSingleton<PersonModel>();
+        serviceCollection.AddTransient<PersonModel>();
 
         var serviceProvider = serviceCollection.BuildServiceProvider();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            serviceCollection.AddSingleton<ApplicationLifeTime<IClassicDesktopStyleApplicationLifetime>>();
+            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+            mainWindow.DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>();
+            desktop.MainWindow = mainWindow;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            serviceCollection.AddSingleton<ApplicationLifeTime<ISingleViewApplicationLifetime>>();
+            var mainView = serviceProvider.GetRequiredService<MainView>();
+            mainView.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
+            singleViewPlatform.MainView = mainView;
         }
 
-        var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-
-        mainWindow.DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>();
-
-        mainWindow.Show();
 
         base.OnFrameworkInitializationCompleted();
     }
