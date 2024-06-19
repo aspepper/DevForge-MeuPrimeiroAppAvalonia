@@ -18,6 +18,7 @@ public partial class MainWindow : Window
 
         InitializeComponent();
         DataContext = viewModel;
+        
         this.navigationService = navigationService;
         navigationService.Initialize(ContentHost);
         navigationService.NavigateTo<MainViewModel>();

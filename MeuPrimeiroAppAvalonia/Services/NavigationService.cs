@@ -12,7 +12,7 @@ namespace MeuPrimeiroAppAvalonia.Services;
 public class NavigationService(IServiceProvider serviceProvider) : INavigationService
 {
     private readonly IServiceProvider serviceProvider = serviceProvider;
-    private Stack stackNavigation = new();
+    private readonly Stack stackNavigation = new();
     private ContentControl contentControl = new();
 
     public void Initialize(ContentControl contentControl)

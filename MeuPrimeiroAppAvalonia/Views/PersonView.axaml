@@ -104,11 +104,13 @@
                                 DockPanel.Dock="Bottom">
                         <Button Content="Send Data"
                                 Command="{Binding SendCommand}"
-                                HorizontalAlignment="Center" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom" />
                         <Button Content="Voltar"
                                 Command="{Binding GoBackCommand}"
                                 Margin="10,0,0,0"
-                                HorizontalAlignment="Center" />
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom" />
                     </StackPanel>
                 </DockPanel>
             </Border>
