@@ -26,12 +26,12 @@ public partial class App : Application
 
         // Registrar ViewModels
         serviceCollection.AddSingleton<MainWindowViewModel>();
-        serviceCollection.AddSingleton<MainViewModel>();
+        serviceCollection.AddTransient<MainViewModel>();
         serviceCollection.AddTransient<PersonViewModel>();
 
         // Registrar Views
         serviceCollection.AddSingleton<MainWindow>();
-        serviceCollection.AddSingleton<MainView>();
+        serviceCollection.AddTransient<MainView>();
         serviceCollection.AddTransient<PersonView>();
 
         // Registrar Serviço de Navegação

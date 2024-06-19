@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using MeuPrimeiroAppAvalonia.Interfaces;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Models;
 using ReactiveUI;
 
@@ -17,7 +18,10 @@ public class PersonViewModel : ViewModelBase
     {
         this.navigationService = navigationService;
         person = personModel;
+        
         SendCommand = ReactiveCommand.Create(SendData);
+        GoBackCommand = ReactiveCommand.Create(GoBack);
+
         Genders = [
             GenderDataList.None,
             GenderDataList.Male,
@@ -49,6 +53,8 @@ public class PersonViewModel : ViewModelBase
 
     public ICommand SendCommand { get; }
 
+    public ICommand GoBackCommand { get; }
+
     private void SendData() 
     {
         Debug.WriteLine($"Id = {Person.Id}");
@@ -57,5 +63,10 @@ public class PersonViewModel : ViewModelBase
         Debug.WriteLine($"Gender = {Person.Gender}");
         Debug.WriteLine($"Is Organ Donor? {Person.IsOrganDonor}");
         Debug.WriteLine($"Birth City = {Person.BirthCity}");
+    }
+
+    private void GoBack() 
+    {
+        navigationService.NavigateToBack();
     }
 }

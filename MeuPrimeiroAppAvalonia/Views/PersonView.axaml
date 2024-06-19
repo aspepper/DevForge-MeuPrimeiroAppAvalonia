@@ -3,61 +3,67 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:MeuPrimeiroAppAvalonia.ViewModels"
-             mc:Ignorable="d" 
-             d:DesignWidth="1280" 
+             mc:Ignorable="d"
+             d:DesignWidth="1280"
              d:DesignHeight="720"
              x:Class="MeuPrimeiroAppAvalonia.Views.PersonView"
              x:DataType="vm:PersonViewModel">
-  <Design.DataContext>
-    <!-- This only sets the DataContext for the previewer in an IDE,
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
          to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-    <vm:PersonViewModel />
-  </Design.DataContext>
+        <vm:PersonViewModel />
+    </Design.DataContext>
 
-    <Viewbox Stretch="Uniform" StretchDirection="Both">
-
-        <Panel Width="1280" Height="720">
-
+    <Viewbox Stretch="Uniform"
+             StretchDirection="Both">
+        <Panel Width="1280"
+               Height="720">
             <Canvas>
-                <Ellipse Width="20" Height="20" Fill="Green" Canvas.Left="20" Canvas.Top="50" />
+                <Ellipse Width="20"
+                         Height="20"
+                         Fill="Green"
+                         Canvas.Left="20"
+                         Canvas.Top="50" />
             </Canvas>
-
             <Border Background="#2f589c"
-                    CornerRadius="10" 
-                    Width="600" 
-                    Height="500" 
-                    VerticalAlignment="Center" 
+                    CornerRadius="10"
+                    Width="600"
+                    Height="500"
+                    VerticalAlignment="Center"
                     HorizontalAlignment="Center">
-
                 <DockPanel>
-
-                    <StackPanel Orientation="Vertical" DockPanel.Dock="Left">
-
-                        <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
+                    <StackPanel Orientation="Vertical"
+                                DockPanel.Dock="Left">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,10,0,0">
                             <Label Content="Id ::" />
-                            <TextBox Text="{Binding Person.Id}" FontSize="16" />
+                            <TextBox Text="{Binding Person.Id}"
+                                     FontSize="16" />
                         </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,5,0,0">
                             <Label Content="Name ::" />
-                            <TextBox Text="{Binding Person.Name}" FontSize="16" />
+                            <TextBox Text="{Binding Person.Name}"
+                                     FontSize="16" />
                         </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,5,0,0">
                             <Label Content="Age ::" />
-                            <TextBox Text="{Binding Person.Age}" FontSize="16" />
+                            <TextBox Text="{Binding Person.Age}"
+                                     FontSize="16" />
                         </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,5,0,0">
                             <Label Content="Gender ::" />
-                            <ComboBox ItemsSource="{Binding Genders}" SelectedItem="{Binding Person.Gender}" />
+                            <ComboBox ItemsSource="{Binding Genders}"
+                                      SelectedItem="{Binding Person.Gender}" />
                         </StackPanel>
-
-                        <StackPanel Orientation="Horizontal" Margin="10,5,0,0">
-                            <CheckBox IsChecked="{Binding Person.IsOrganDonor}" Content="Is Organ Donor?" />
+                        <StackPanel Orientation="Horizontal"
+                                    Margin="10,5,0,0">
+                            <CheckBox IsChecked="{Binding Person.IsOrganDonor}"
+                                      Content="Is Organ Donor?" />
                         </StackPanel>
-
-                        <WrapPanel>
+                        <WrapPanel Width="300">
                             <Label Content="Cacilds vidis litro abertis." />
                             <Label Content="Pra lá, depois divoltis porris, paradis." />
                             <Label Content="Atirei o pau no gatis, per gatis num morreus." />
@@ -65,30 +71,47 @@
                             <Label Content="Pra lá, depois divoltis porris, paradis." />
                             <Label Content="Atirei o pau no gatis, per gatis num morreus." />
                         </WrapPanel>
-
-                        <Grid RowDefinitions="20,20,20" ColumnDefinitions="100,100">
-                            <TextBlock Grid.Row="0" Grid.Column="0" Background="Red" />
-                            <TextBlock Grid.Row="1" Grid.Column="0" Background="Green" />
-                            <TextBlock Grid.Row="2" Grid.Column="0" Background="Blue" />
-
-                            <TextBlock Grid.Row="0" Grid.Column="1" Background="Blue" />
-                            <TextBlock Grid.Row="1" Grid.Column="1" Background="Red" />
-                            <TextBlock Grid.Row="2" Grid.Column="1" Background="Green" />
+                        <Grid RowDefinitions="20,20,20"
+                              ColumnDefinitions="100,100">
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Background="Red" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
+                                       Background="Green" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="0"
+                                       Background="Blue" />
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="1"
+                                       Background="Blue" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="1"
+                                       Background="Red" />
+                            <TextBlock Grid.Row="2"
+                                       Grid.Column="1"
+                                       Background="Green" />
                         </Grid>
-
                     </StackPanel>
-
-                    <ListBox ItemsSource="{Binding Cities}" SelectedItem="{Binding Person.BirthCity}" 
-                             DockPanel.Dock="Right" VerticalAlignment="Top" Margin="0,20,10,0"
-                             Height="400" Width="200" />
-
-                    <Button DockPanel.Dock="Bottom" Content="Send Data" Command="{Binding SendCommand}" HorizontalAlignment="Center" />
+                    <ListBox ItemsSource="{Binding Cities}"
+                             SelectedItem="{Binding Person.BirthCity}"
+                             DockPanel.Dock="Right"
+                             VerticalAlignment="Top"
+                             Margin="0,20,10,0"
+                             Height="400"
+                             Width="200" />
+                    <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Bottom">
+                        <Button Content="Send Data"
+                                Command="{Binding SendCommand}"
+                                HorizontalAlignment="Center" />
+                        <Button Content="Voltar"
+                                Command="{Binding GoBackCommand}"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Center" />
+                    </StackPanel>
                 </DockPanel>
-
             </Border>
-
         </Panel>
-
     </Viewbox>
-
 </UserControl>
