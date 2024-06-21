@@ -13,8 +13,6 @@
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
 
-    <Viewbox Stretch="Uniform" StretchDirection="Both">
-        <ContentControl x:Name="ContentHost" />
-    </Viewbox>
+    <ContentControl x:Name="MainWindowContentHost" />
 
 </Window>

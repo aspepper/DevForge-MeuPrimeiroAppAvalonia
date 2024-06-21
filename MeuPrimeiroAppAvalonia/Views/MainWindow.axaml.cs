@@ -6,9 +6,7 @@ namespace MeuPrimeiroAppAvalonia.Views;
 
 public partial class MainWindow : Window
 {
-    private INavigationService navigationService;
-
-    public MainWindow(MainWindowViewModel viewModel, INavigationService navigationService)
+    public MainWindow(INavigationService navigationService)
     {
         this.SizeToContent = SizeToContent.Manual;
         this.Width = 1280;
@@ -17,10 +15,7 @@ public partial class MainWindow : Window
         this.CanResize = false;
 
         InitializeComponent();
-        DataContext = viewModel;
-        
-        this.navigationService = navigationService;
-        navigationService.Initialize(ContentHost);
-        navigationService.NavigateTo<MainViewModel>();
+        navigationService.Initialize(MainWindowContentHost);
+        navigationService.NavigateTo<ContainerViewModel>();
     }
 }

@@ -7,56 +7,78 @@ using MeuPrimeiroAppAvalonia.ViewModels;
 using MeuPrimeiroAppAvalonia.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Models;
+using System;
 
-namespace MeuPrimeiroAppAvalonia;
-
-public partial class App : Application
+namespace MeuPrimeiroAppAvalonia
 {
-    public override void Initialize()
+    public partial class App : Application
     {
-        AvaloniaXamlLoader.Load(this);
-    }
+        // Initialize the application
+        public override void Initialize()
+        {
+            // Load Avalonia XAML definitions for the application
+            AvaloniaXamlLoader.Load(this);
+        }
 
-    public override void OnFrameworkInitializationCompleted()
-    {
+        // Method called when the framework initialization is completed
+        public override void OnFrameworkInitializationCompleted()
+        {
 #if DEBUG
-        this.AttachDevTools();
+            // Attach development tools if in debug mode
+            this.AttachDevTools();
 #endif
-       var serviceCollection = new ServiceCollection();
+            // Build the service provider for dependency injection
+            var serviceProvider = DependencyInjectionConstructorBuilder();
 
-        // Registrar ViewModels
-        serviceCollection.AddSingleton<MainWindowViewModel>();
-        serviceCollection.AddTransient<MainViewModel>();
-        serviceCollection.AddTransient<PersonViewModel>();
+            // Check if the application lifetime is for desktop applications
+            if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
+            {
+                // Retrieve MainWindow and MainWindowViewModel from the service provider
+                var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
+                mainWindow.DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>();
+                // Set the main window of the desktop application
+                desktop.MainWindow = mainWindow;
+            }
+            // Check if the application lifetime is for single view applications
+            else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
+            {
+                // Retrieve MainView and MainViewModel from the service provider
+                var mainView = serviceProvider.GetRequiredService<MainView>();
+                mainView.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
+                // Set the main view of the single view application
+                singleViewPlatform.MainView = mainView;
+            }
 
-        // Registrar Views
-        serviceCollection.AddSingleton<MainWindow>();
-        serviceCollection.AddTransient<MainView>();
-        serviceCollection.AddTransient<PersonView>();
-
-        // Registrar Serviço de Navegação
-        serviceCollection.AddSingleton<INavigationService, NavigationService>();
-
-        // Adicionar outras dependências
-        serviceCollection.AddTransient<PersonModel>();
-
-        var serviceProvider = serviceCollection.BuildServiceProvider();
-
-        if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
-        {
-            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-            mainWindow.DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>();
-            desktop.MainWindow = mainWindow;
-        }
-        else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
-        {
-            var mainView = serviceProvider.GetRequiredService<MainView>();
-            mainView.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
-            singleViewPlatform.MainView = mainView;
+            // Call the base class method
+            base.OnFrameworkInitializationCompleted();
         }
 
+        // Method to build the service provider for dependency injection
+        private IServiceProvider DependencyInjectionConstructorBuilder()
+        {
+            // Create a new service collection
+            var serviceCollection = new ServiceCollection();
 
-        base.OnFrameworkInitializationCompleted();
+            // Register ViewModels
+            serviceCollection.AddSingleton<MainWindowViewModel>();
+            serviceCollection.AddTransient<ContainerViewModel>();
+            serviceCollection.AddTransient<MainViewModel>();
+            serviceCollection.AddTransient<PersonViewModel>();
+
+            // Register Views
+            serviceCollection.AddSingleton<MainWindow>();
+            serviceCollection.AddTransient<ContainerView>();
+            serviceCollection.AddTransient<MainView>();
+            serviceCollection.AddTransient<PersonView>();
+
+            // Register Navigation Service
+            serviceCollection.AddSingleton<INavigationService, NavigationService>();
+
+            // Add other dependencies
+            serviceCollection.AddTransient<PersonModel>();
+
+            // Build and return the service provider
+            return serviceCollection.BuildServiceProvider();
+        }
     }
-
 }

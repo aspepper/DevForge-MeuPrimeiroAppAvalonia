@@ -2,12 +2,7 @@ using MeuPrimeiroAppAvalonia.Interfaces;
 
 namespace MeuPrimeiroAppAvalonia.ViewModels;
 
-public class MainWindowViewModel
+public class MainWindowViewModel(INavigationService navigationService)
 {
-    private readonly INavigationService navigationService;
-
-    public MainWindowViewModel(INavigationService navigationService)
-    {
-        this.navigationService = navigationService;
-    }
+    private readonly INavigationService navigationService = navigationService;
 }
