@@ -2,7 +2,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using MeuPrimeiroAppAvalonia.Interfaces;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Models;
 using ReactiveUI;
 

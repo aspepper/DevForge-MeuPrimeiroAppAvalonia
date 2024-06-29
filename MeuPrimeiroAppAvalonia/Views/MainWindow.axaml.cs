@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Avalonia.Controls;
 using MeuPrimeiroAppAvalonia.Interfaces;
 using MeuPrimeiroAppAvalonia.ViewModels;
@@ -15,7 +16,9 @@ public partial class MainWindow : Window
         this.CanResize = false;
 
         InitializeComponent();
-        navigationService.Initialize(MainWindowContentHost);
-        navigationService.NavigateTo<ContainerViewModel>();
+        
+        navigationService.Initialize(ContentHostWindow);
+        Task.Delay(1000).Wait();
+        navigationService.NavigateToRoot<MenuViewModel>();
     }
 }

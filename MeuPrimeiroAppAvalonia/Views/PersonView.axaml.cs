@@ -5,9 +5,8 @@ namespace MeuPrimeiroAppAvalonia.Views;
 
 public partial class PersonView : UserControl
 {
-    public PersonView(PersonViewModel viewModel)
+    public PersonView()
     {
         InitializeComponent();
-        this.DataContext = viewModel;
     }
 }

@@ -100,7 +100,8 @@
                              Margin="0,20,10,0"
                              Height="400"
                              Width="200" />
-                    <StackPanel Orientation="Horizontal"
+
+                 <StackPanel Orientation="Horizontal"
                                 DockPanel.Dock="Bottom">
                         <Button Content="Send Data"
                                 Command="{Binding SendCommand}"

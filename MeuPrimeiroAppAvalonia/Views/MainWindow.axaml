@@ -5,14 +5,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:MeuPrimeiroAppAvalonia.Views"
-    xmlns:vm="using:MeuPrimeiroAppAvalonia.ViewModels"
     Title="MeuPrimeiroAppAvalonia"
     d:DesignHeight="720"
     d:DesignWidth="1280"
-    x:DataType="vm:MainWindowViewModel"
     Icon="/Assets/avalonia-logo.ico"
     mc:Ignorable="d">
 
-    <ContentControl x:Name="MainWindowContentHost" />
+    <Viewbox Stretch="Uniform" StretchDirection="Both">
+        <ContentControl x:Name="ContentHostWindow" />
+    </Viewbox>
 
 </Window>

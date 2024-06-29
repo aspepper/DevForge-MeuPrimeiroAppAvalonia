@@ -1,0 +1,61 @@
+<UserControl x:Class="MeuPrimeiroAppAvalonia.Views.SamplesView"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:MeuPrimeiroAppAvalonia.ViewModels"
+             d:DesignHeight="1280"
+             d:DesignWidth="720"
+             x:DataType="vm:SamplesViewModel"
+             mc:Ignorable="d">
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+            to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Viewbox Stretch="Uniform"
+             StretchDirection="Both">
+             <StackPanel Width="1280" Height="720" Orientation="Vertical">
+
+                <TextBlock Text="UniformGrid Sample" />
+                <Panel>
+                    <UniformGrid Columns="3" Rows="2">
+                        <Button Content="1"/>
+                        <Button Content="2"/>
+                        <Button Content="3"/>
+                        <Button Content="4"/>
+                        <Button Content="5"/>
+                        <Button Content="6"/>
+                    </UniformGrid>
+                </Panel>
+
+                <TextBlock Text="TabControl Sample" Margin="0,30,0,0" />
+                <TabControl>
+                    <TabItem Header="Tab 1">
+                        <TextBlock Text="Conteúdo da Tab 1"/>
+                    </TabItem>
+                    <TabItem Header="Tab 2">
+                        <TextBlock Text="Conteúdo da Tab 2"/>
+                    </TabItem>
+                </TabControl>
+
+                <TextBlock Text="Expander Sample" Margin="0,30,0,0" />
+                <Expander Header="Clique para expandir">
+                    <TextBlock Text="Conteúdo expandido"/>
+                </Expander>
+
+                <DockPanel HorizontalAlignment="Center">
+
+                 <StackPanel Orientation="Horizontal"
+                                DockPanel.Dock="Bottom">
+                        <Button Content="Voltar"
+                                Command="{Binding GoBackCommand}"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Bottom" />
+                    </StackPanel>
+                </DockPanel>
+            </StackPanel>
+     </Viewbox>
+</UserControl>

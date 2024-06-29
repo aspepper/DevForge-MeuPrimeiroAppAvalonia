@@ -1,8 +1,6 @@
-using Avalonia;
-using Avalonia.Controls;
+﻿using Avalonia.Controls;
 using MeuPrimeiroAppAvalonia.Interfaces;
 using MeuPrimeiroAppAvalonia.ViewModels;
-using MeuPrimeiroAppAvalonia.Views;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections;
@@ -12,9 +10,11 @@ namespace MeuPrimeiroAppAvalonia.Services;
 public class NavigationService(IServiceProvider serviceProvider) : INavigationService
 {
     private readonly IServiceProvider serviceProvider = serviceProvider;
-    private readonly Stack stackNavigation = new();
-    private ContentControl contentControl = new();
 
+    private readonly Stack stackNavigation = new();
+
+    private ContentControl contentControl = new();
+    
     public void Initialize(ContentControl contentControl)
     {
         this.contentControl = contentControl;
@@ -38,7 +38,6 @@ public class NavigationService(IServiceProvider serviceProvider) : INavigationSe
         stackNavigation.Clear();
         NavigateTo<TViewModel>();
     }
-
 
     public void NavigateToBack()
     {
