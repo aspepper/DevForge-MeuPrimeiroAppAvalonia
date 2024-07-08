@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using MeuPrimeiroAppAvalonia.DependencyInjection;
 using MeuPrimeiroAppAvalonia.Interfaces;
 using MeuPrimeiroAppAvalonia.Services;
 using MeuPrimeiroAppAvalonia.ViewModels;
@@ -20,51 +21,24 @@ public partial class App : Application
     public override void OnFrameworkInitializationCompleted()
     {
 #if DEBUG
-        this.AttachDevTools();
+        //this.AttachDevTools();
 #endif
-        var serviceProvider = ConfigureContainerBuilder();
+        var serviceProvider = new AppServiceProviderBuilder().GetService<ServiceProvider>();
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
-            var mainWindow = serviceProvider.GetRequiredService<MainWindow>();
-            mainWindow.DataContext = serviceProvider.GetRequiredService<MainWindowViewModel>();
+            var mainWindow = serviceProvider!.GetRequiredService<MainWindow>();
+            mainWindow.DataContext = serviceProvider!.GetRequiredService<MainWindowViewModel>();
             desktop.MainWindow = mainWindow;
         }
         else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
         {
-            var rootView = serviceProvider.GetRequiredService<MainView>();
-            rootView.DataContext = serviceProvider.GetRequiredService<MainViewModel>();
+            var rootView = serviceProvider!.GetRequiredService<MainView>();
+            rootView.DataContext = serviceProvider!.GetRequiredService<MainViewModel>();
             singleViewPlatform.MainView = rootView;
         }
 
         base.OnFrameworkInitializationCompleted();
-    }
-
-    private ServiceProvider ConfigureContainerBuilder()
-    {
-        var serviceCollection = new ServiceCollection();
-
-        // Registrar ViewModels
-        serviceCollection.AddSingleton<MainWindowViewModel>();
-        serviceCollection.AddTransient<MainViewModel>();
-        serviceCollection.AddTransient<MenuViewModel>();
-        serviceCollection.AddTransient<PersonViewModel>();
-        serviceCollection.AddTransient<SamplesViewModel>();
-
-        // Registrar Views
-        serviceCollection.AddSingleton<MainWindow>();
-        serviceCollection.AddTransient<MainView>();
-        serviceCollection.AddTransient<MenuView>();
-        serviceCollection.AddTransient<PersonView>();
-        serviceCollection.AddTransient<SamplesView>();
-
-        // Registrar Serviço de Navegação
-        serviceCollection.AddSingleton<INavigationService, NavigationService>();
-
-        // Adicionar outras dependências
-        serviceCollection.AddTransient<PersonModel>();
-
-        return serviceCollection.BuildServiceProvider();
     }
 
 }
