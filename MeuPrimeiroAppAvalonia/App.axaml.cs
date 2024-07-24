@@ -2,12 +2,9 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using MeuPrimeiroAppAvalonia.DependencyInjection;
-using MeuPrimeiroAppAvalonia.Interfaces;
-using MeuPrimeiroAppAvalonia.Services;
 using MeuPrimeiroAppAvalonia.ViewModels;
 using MeuPrimeiroAppAvalonia.Views;
 using Microsoft.Extensions.DependencyInjection;
-using Models;
 
 namespace MeuPrimeiroAppAvalonia;
 
@@ -23,7 +20,7 @@ public partial class App : Application
 #if DEBUG
         //this.AttachDevTools();
 #endif
-        var serviceProvider = new AppServiceProviderBuilder().GetService<ServiceProvider>();
+        var serviceProvider = new AppServiceProviderBuilder().AppServiceProvider;
 
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {

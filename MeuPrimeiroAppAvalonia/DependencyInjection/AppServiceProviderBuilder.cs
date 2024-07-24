@@ -13,6 +13,11 @@ public sealed class AppServiceProviderBuilder : IServiceProvider
 
     public ServiceProvider? AppServiceProvider { get; private set; }
 
+    public AppServiceProviderBuilder()
+    {
+        AppServiceProvider = this.GetService<ServiceProvider>();
+    }
+
     public object? GetService(Type serviceType)
     {
         AppServiceProvider = ConfigureContainerBuilder();
