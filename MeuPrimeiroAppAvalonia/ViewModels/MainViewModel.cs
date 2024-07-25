@@ -2,8 +2,5 @@
 
 namespace MeuPrimeiroAppAvalonia.ViewModels;
 
-public class MainViewModel : ViewModelBase
-{
-    public MainViewModel()
-    { }
-}
+public class MainViewModel(INavigationService navigationService) : ViewModelBase(navigationService)
+{ }

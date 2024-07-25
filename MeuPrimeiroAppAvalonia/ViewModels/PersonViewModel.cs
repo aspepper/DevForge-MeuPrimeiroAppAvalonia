@@ -9,26 +9,30 @@ namespace MeuPrimeiroAppAvalonia.ViewModels;
 
 public class PersonViewModel : ViewModelBase
 {
-
     private PersonModel person;
-    private readonly INavigationService navigationService;
 
-    public PersonViewModel(PersonModel personModel, INavigationService navigationService)
+    public PersonViewModel(PersonModel personModel, INavigationService navigationService) : base(navigationService)
     {
-        this.navigationService = navigationService;
         person = personModel;
-        
         SendCommand = ReactiveCommand.Create(SendData);
-        GoBackCommand = ReactiveCommand.Create(GoBack);
+    }
 
-        Genders = [
+    public PersonModel Person
+    {
+        get => person;
+        set => this.RaiseAndSetIfChanged(ref person, value);
+    }
+
+    public ObservableCollection<GenderDataList> Genders { get; private set; } =
+        [
             GenderDataList.None,
             GenderDataList.Male,
             GenderDataList.Female,
             GenderDataList.Other
         ];
 
-        Cities = [
+    public ObservableCollection<CityDataList> Cities { get; private set; } =
+        [
             CityDataList.Santos,
             CityDataList.SaoPaulo,
             CityDataList.RioDeJaneiro,
@@ -38,23 +42,10 @@ public class PersonViewModel : ViewModelBase
             CityDataList.Paris,
             CityDataList.Roma
         ];
-    }
-
-    public PersonModel Person
-    {
-        get => person;
-        set => this.RaiseAndSetIfChanged(ref person, value);
-    }
-
-    public ObservableCollection<GenderDataList> Genders { get; private set; }
-
-    public ObservableCollection<CityDataList> Cities { get; private set; }
 
     public ICommand SendCommand { get; }
 
-    public ICommand GoBackCommand { get; }
-
-    private void SendData() 
+    private void SendData()
     {
         Debug.WriteLine($"Id = {Person.Id}");
         Debug.WriteLine($"Name = {Person.Name}");
@@ -62,10 +53,5 @@ public class PersonViewModel : ViewModelBase
         Debug.WriteLine($"Gender = {Person.Gender}");
         Debug.WriteLine($"Is Organ Donor? {Person.IsOrganDonor}");
         Debug.WriteLine($"Birth City = {Person.BirthCity}");
-    }
-
-    private void GoBack() 
-    {
-        navigationService.NavigateToBack();
     }
 }

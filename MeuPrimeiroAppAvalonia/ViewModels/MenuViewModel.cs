@@ -6,10 +6,10 @@ namespace MeuPrimeiroAppAvalonia.ViewModels;
 
 public class MenuViewModel : ViewModelBase
 {
-    public string Greeting => "Dê um Like!!!!";
+    public string Greeting => "Give a thumbs up!!!!";
     private readonly INavigationService navigationService;
 
-    public MenuViewModel(INavigationService navigationService)
+    public MenuViewModel(INavigationService navigationService) : base(navigationService)
     {
         this.navigationService = navigationService;
         OpenPersonCommand = ReactiveCommand.Create(OpenPersonView);
