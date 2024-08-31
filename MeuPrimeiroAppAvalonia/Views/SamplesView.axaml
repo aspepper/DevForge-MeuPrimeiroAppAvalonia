@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="using:MeuPrimeiroAppAvalonia.ViewModels"
+             xmlns:generic="using:System.Collections.Generic"
              d:DesignHeight="1280"
              d:DesignWidth="720"
              x:DataType="vm:SamplesViewModel"
@@ -30,24 +31,96 @@
                     </UniformGrid>
                 </Panel>
 
-                <TextBlock Text="TabControl Sample" Margin="0,30,0,0" />
+                <TextBlock Text="TabControl Sample" Margin="0,20,0,0" />
                 <TabControl>
                     <TabItem Header="Tab 1">
-                        <TextBlock Text="Conteúdo da Tab 1"/>
+                        <TextBlock Text="Content of Tab 1"/>
                     </TabItem>
                     <TabItem Header="Tab 2">
-                        <TextBlock Text="Conteúdo da Tab 2"/>
+                        <TextBlock Text="Content of Tab 2"/>
                     </TabItem>
                 </TabControl>
 
-                <TextBlock Text="Expander Sample" Margin="0,30,0,0" />
-                <Expander Header="Clique para expandir">
-                    <TextBlock Text="Conteúdo expandido"/>
+                <TextBlock Text="Expander Sample" Margin="0,20,0,0" />
+                <Expander Header="Click to expand">
+                    <TextBlock Text="Expanded Content"/>
                 </Expander>
 
-                <DockPanel HorizontalAlignment="Center">
+                <AutoCompleteBox 
+                    Width="400"
+                    Margin="0,5,0,0"
+                    Watermark="This a AutoCompleteBox example..."
+                    ItemsSource="{Binding AutocompleteList}"
+                    Text="{Binding AutoCompleteResult, }" />
 
-                 <StackPanel Orientation="Horizontal"
+                <Label Content="{Binding AutoCompleteResult}" Margin="0,5" HorizontalAlignment="Center" />
+
+                <Border BorderBrush="Black"
+                        BorderThickness="2"
+                        Padding="10"
+                        Background="LightGray"
+                        Margin="150,20,150,10"
+                        CornerRadius="8">
+                    <TextBlock Text="This a Border example" 
+                               FontWeight="400"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                </Border>
+
+                <Button Name="ButtonSample"
+                        Width="200"
+                        Height="50"
+                        Margin="0,20,0,0"
+                        Background="Blue"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        CornerRadius="8"
+                        Click="OnButtonClick">
+                    <Label Content="Click Here"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                </Button>
+
+                <Calendar SelectedDate="{Binding SelectedDate}"
+                          Margin="0,20,0,0"
+                          DisplayDateStart="2024-01-01"
+                          DisplayDateEnd="2024-12-31"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center" />
+
+                <Label Content="{Binding SelectedDate}" Margin="0,5" HorizontalAlignment="Center" />
+
+                <Canvas Width="800"
+                        Height="600"
+                        Margin="0,20,0,0"
+                        Background="LightBlue"
+                        HorizontalAlignment="Center">
+                    <Ellipse Fill="Green" Width="58" Height="58" Canvas.Left="88" Canvas.Top="100"/>
+                    <Path Fill="Orange" Data="M 0,0 c 0,0 50,0 50,-50 c 0,0 50,0 50,50 h -50 v 50 l -50,-50 Z"
+                          Canvas.Left="{Binding PosX}"
+                          Canvas.Top="{Binding PosY}"/>
+                </Canvas>
+
+                <Button Name="ButtonSample"
+                        Width="200"
+                        Height="50"
+                        Margin="0,20,0,0"
+                        Background="Blue"
+                        Foreground="White"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        CornerRadius="8"
+                        Command="{Binding GoAhead}">
+                    <Label Content="Go Ahead"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center" />
+                </Button>
+
+                <DockPanel HorizontalAlignment="Center"
+                           Margin="0,20,0,0">
+
+                    <StackPanel Orientation="Horizontal"
                                 DockPanel.Dock="Bottom">
                         <Button Content="Voltar"
                                 Command="{Binding GoBackCommand}"
@@ -56,6 +129,7 @@
                                 VerticalAlignment="Bottom" />
                     </StackPanel>
                 </DockPanel>
+
             </StackPanel>
      </Viewbox>
 </UserControl>
